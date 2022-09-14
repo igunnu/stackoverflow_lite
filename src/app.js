@@ -1,12 +1,22 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
-const dotenv = require('dotenv');
-
-dotenv.config({});
+const morgan = require('morgan');
+const errorHandler = require('./middleware/error');
+const authRoute = require('./routes/authRoute');
+require('dotenv').config({});
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
+app.use('/api/v1/auth', authRoute);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;
 

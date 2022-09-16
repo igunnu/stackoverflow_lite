@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const errorHandler = require('./middleware/error');
 const authRoute = require('./routes/authRoute');
-const indexRoute = require('../src/routes/index')
+const indexRoute = require('./routes/index');
 require('dotenv').config({});
 
 const app = express();

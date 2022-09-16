@@ -38,9 +38,7 @@ exports.getAllQuestions = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json({
     status: 'success',
-    data: {
-      questions
-    }
+    data: questions
   });
 });
 
@@ -68,9 +66,7 @@ exports.getQuestion = asyncHandler(async (req, res, next) => {
   }
   return res.status(200).json({
     status: 'success',
-    data: {
-      question
-    }
+    data: question
   });
 });
 
@@ -92,5 +88,21 @@ exports.postAnswer = asyncHandler(async (req, res, next) => {
     data: {
       message: 'Answer submitted'
     }
+  });
+});
+
+exports.getAnswers = asyncHandler(async (req, res, next) => {
+  const answers = await Answer.findAll({
+    where: { questionId: req.params.questionId },
+    attributes: { exclude: 'userId' },
+    include: [{
+      model: User,
+      as: 'author',
+      attributes: ['username']
+    }]
+  });
+  return res.status(200).json({
+    status: 'success',
+    data: answers
   });
 });

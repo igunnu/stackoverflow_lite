@@ -33,7 +33,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!user || !await user.validPassword(password, user.password)) {
     return next(new ErrorResponse('username or password incorrect', 400));
   }
-  const token = user.getSignedJwtToken(user.id);
+  const token = await user.getSignedJwtToken(user.id);
 
   return res.status(200).json({
     status: 'success',

@@ -2,11 +2,10 @@ module.exports = (sequelize, DataTypes) => {
   const Question = sequelize.define('question', {
     title: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
     body: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     }
   });

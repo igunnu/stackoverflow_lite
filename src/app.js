@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const errorHandler = require('./middleware/error');
 const authRoute = require('./routes/authRoute');
+const indexRoute = require('../src/routes/index')
 require('dotenv').config({});
 
 const app = express();
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/questions', indexRoute);
 
 app.use(errorHandler);
 

@@ -4,14 +4,17 @@ const dbConfig = require('../config/dbConfig');
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: 'mysql',
-  operatorsAliases: false
+  operatorsAliases: 0
 });
-
-sequelize.authenticate().then(
-  console.log(`Database connect to ${dbConfig.DB} on ${dbConfig.HOST}`)
-).catch((err) => {
-  console.error(`Error: ${err.message}`);
-});
+const authenticateDB = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+};
+authenticateDB();
 
 const db = {};
 
@@ -27,10 +30,13 @@ db.comments = require('./commentModel')(sequelize, DataTypes);
 db.users.hasMany(db.questions);
 db.users.hasMany(db.answers);
 db.users.hasMany(db.comments);
+db.questions.belongsTo(db.users, {as: 'author', foreignKey: 'userId'});
+db.answers.belongsTo(db.users);
+db.comments.belongsTo(db.users);
 db.questions.hasMany(db.answers, { onDelete: 'cascade', allowNull: false });
 db.answers.hasMany(db.comments, { onDelete: 'cascade', allowNull: false });
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   console.log('yes re-sync done');
 });
 

@@ -4,6 +4,7 @@ const ErrorResponse = require('../utils/errorResponse');
 
 const User = db.users;
 const Question = db.questions;
+const Answer = db.answers;
 
 exports.postQuestion = asyncHandler(async (req, res, next) => {
   const { title, body } = req.body;
@@ -51,7 +52,16 @@ exports.getQuestion = asyncHandler(async (req, res, next) => {
       model: User,
       as: 'author',
       attributes: ['username']
-    }]
+    },
+    {
+      model: Answer,
+      include: [{
+        model: User,
+        as: 'author',
+        attributes: ['username']
+      }]
+    }
+    ]
   });
   if (!question) {
     return next(new ErrorResponse('not found', 404));
@@ -60,6 +70,27 @@ exports.getQuestion = asyncHandler(async (req, res, next) => {
     status: 'success',
     data: {
       question
+    }
+  });
+});
+
+exports.postAnswer = asyncHandler(async (req, res, next) => {
+  const { body } = req.body;
+  if (!body) {
+    return next(new ErrorResponse('body is required', 400));
+  }
+
+  const data = {
+    body,
+    userId: req.user.id,
+    questionId: req.params.questionId
+  };
+
+  await Answer.create(data);
+  return res.status(201).json({
+    status: 'success',
+    data: {
+      message: 'Answer submitted'
     }
   });
 });

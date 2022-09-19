@@ -101,8 +101,27 @@ exports.getAnswers = asyncHandler(async (req, res, next) => {
       attributes: ['username']
     }]
   });
+
   return res.status(200).json({
     status: 'success',
     data: answers
+  });
+});
+
+exports.deleteQuestion = asyncHandler(async (req, res, next) => {
+  const question = await Question.findOne({
+    where: { id: req.params.questionId }
+  });
+
+  if (req.user.id !== question.userId) {
+    return next(new ErrorResponse('Operation not permitted', 401));
+  }
+  await question.destroy();
+
+  return res.status(200).json({
+    status: 'success',
+    data: {
+      message: 'Question deleted'
+    }
   });
 });

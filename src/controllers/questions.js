@@ -5,6 +5,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const User = db.users;
 const Question = db.questions;
 const Answer = db.answers;
+const { sequelize } = db;
 
 exports.postQuestion = asyncHandler(async (req, res, next) => {
   const { title, body } = req.body;
@@ -92,9 +93,31 @@ exports.postAnswer = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAnswers = asyncHandler(async (req, res, next) => {
+  /* SELECT
+      answers.id,
+      body,
+      answers.createdAt,
+      answers.updatedAt,
+      questionId,
+      (SELECT SUM(voteValue) FROM VOTES WHERE answerId=answers.id)AS 'vote_count',
+      users.username AS 'author'.'username'
+      FROM answers
+      JOIN users
+      ON
+        users.id=answers.userId;
+
+  */
   const answers = await Answer.findAll({
     where: { questionId: req.params.questionId },
-    attributes: { exclude: 'userId' },
+    attributes: {
+      exclude: 'userId',
+      include: [
+        [
+          sequelize.literal('(SELECT SUM(voteValue) FROM VOTES WHERE answerId=answer.id)'), 'vote_count'
+
+        ]
+      ]
+    },
     include: [{
       model: User,
       as: 'author',
@@ -125,5 +148,3 @@ exports.deleteQuestion = asyncHandler(async (req, res, next) => {
     }
   });
 });
-
-

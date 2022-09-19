@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { protectedRoute } = require('../middleware/auth');
 const {
   postQuestion, getAllQuestions, getQuestion, postAnswer, getAnswers, deleteQuestion
-} = require('../controllers/index');
+} = require('../controllers/questions');
 
 router.get('/', getAllQuestions);
 router.post('/', protectedRoute, postQuestion);

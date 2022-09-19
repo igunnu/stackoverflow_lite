@@ -7,6 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     body: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    acceptedAnswer:{
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'answers',
+        key: 'id'
+      }
     }
   });
 

@@ -25,6 +25,7 @@ db.sequelize = sequelize;
 db.users = require('./userModel')(sequelize, DataTypes);
 db.questions = require('./questionModel')(sequelize, DataTypes);
 db.answers = require('./answerModel')(sequelize, DataTypes);
+db.votes = require('./voteModel')(sequelize, DataTypes);
 db.comments = require('./commentModel')(sequelize, DataTypes);
 
 // Associations
@@ -36,6 +37,7 @@ db.answers.belongsTo(db.users, { as: 'author', foreignKey: 'userId' });
 db.comments.belongsTo(db.users);
 db.questions.hasMany(db.answers, { onDelete: 'cascade', allowNull: false });
 db.answers.hasMany(db.comments, { onDelete: 'cascade', allowNull: false });
+db.answers.hasMany(db.votes, { foreignKey: 'answerId' });
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log('yes re-sync done');

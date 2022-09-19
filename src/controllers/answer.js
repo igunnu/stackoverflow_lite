@@ -5,6 +5,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const User = db.users;
 const Question = db.questions;
 const Answer = db.answers;
+const Vote = db.votes;
 
 exports.acceptAnswer = asyncHandler(async (req, res, next) => {
   const question = await Question.findOne({ where: { id: req.body.questionId } });
@@ -20,4 +21,41 @@ exports.acceptAnswer = asyncHandler(async (req, res, next) => {
       message: 'Answer accepted'
     }
   });
+});
+
+exports.vote = asyncHandler(async (req, res, next) => {
+  const voteType = req.query.type;
+  const data = {
+    userId: req.user.id,
+    answerId: req.params.answerId
+  };
+  try {
+    if (voteType === 'upvote') {
+      data.voteValue = 1;
+      await Vote.create(data);
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          message: 'upvote successfull'
+        }
+      });
+    }
+    if (voteType === 'downvote') {
+      data.voteValue = -1;
+      await Vote.create(data);
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          message: 'downvote successfull'
+        }
+      });
+    }
+
+    return next(new ErrorResponse('invalid vote type', 400));
+  } catch (err) {
+    if (err.parent.code === 'ER_DUP_ENTRY') {
+      return next(new ErrorResponse('already voted', 400));
+    }
+    return next(new ErrorResponse('internal server error', 500));
+  }
 });

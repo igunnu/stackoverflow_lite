@@ -11,6 +11,9 @@ const errorHandler = (err, req, res, next) => {
     });
     error = new ErrorResponse(message, 400);
   }
+  if (err.name === 'SequelizeForeignKeyConstraintError') {
+    error = new ErrorResponse('Object not found', 404);
+  }
 
   // uncaught error default to 500
   res.status(error.statusCode || 500).json({

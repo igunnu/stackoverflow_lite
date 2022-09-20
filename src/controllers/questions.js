@@ -39,7 +39,10 @@ exports.getAllQuestions = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json({
     status: 'success',
-    data: questions
+    data: {
+      questions,
+      message: 'success'
+    }
   });
 });
 
@@ -67,7 +70,10 @@ exports.getQuestion = asyncHandler(async (req, res, next) => {
   }
   return res.status(200).json({
     status: 'success',
-    data: question
+    data: {
+      question,
+      message: 'success'
+    }
   });
 });
 
@@ -127,7 +133,10 @@ exports.getAnswers = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json({
     status: 'success',
-    data: answers
+    data: {
+      answers,
+      message: 'successful'
+    }
   });
 });
 
@@ -155,7 +164,10 @@ exports.searchQuestion = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json({
     status: 'success',
-    data: questions
+    data: {
+      questions,
+      message: 'success'
+    }
   });
 });
 
@@ -166,6 +178,9 @@ exports.myQuestions = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json({
     status: 'success',
-    data: questions
+    data: {
+      questions,
+      message: 'success'
+    }
   });
 });

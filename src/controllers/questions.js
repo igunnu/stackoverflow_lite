@@ -148,3 +148,13 @@ exports.deleteQuestion = asyncHandler(async (req, res, next) => {
     }
   });
 });
+
+exports.searchQuestion = asyncHandler(async (req, res, next) => {
+  const { searchQuery } = req.body;
+  const [questions] = await sequelize.query(`SELECT * FROM questions  WHERE MATCH(title) AGAINST('${searchQuery}' IN NATURAL LANGUAGE MODE);`);
+
+  return res.status(200).json({
+    status: 'success',
+    data: questions
+  });
+});

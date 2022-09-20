@@ -158,3 +158,14 @@ exports.searchQuestion = asyncHandler(async (req, res, next) => {
     data: questions
   });
 });
+
+exports.myQuestions = asyncHandler(async (req, res, next) => {
+  const questions = await Question.findAll({
+    where: { userId: req.user.id }
+  });
+
+  return res.status(200).json({
+    status: 'success',
+    data: questions
+  });
+});

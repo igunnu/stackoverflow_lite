@@ -10,7 +10,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 const authenticateDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
@@ -39,8 +38,14 @@ db.questions.hasMany(db.answers, { onDelete: 'cascade', allowNull: false });
 db.answers.hasMany(db.comments, { onDelete: 'cascade', allowNull: false });
 db.answers.hasMany(db.votes, { foreignKey: 'answerId' });
 
-db.sequelize.sync({ force: false }).then(() => {
-  console.log('yes re-sync done');
-});
+// db.sequelize.sync({ force: true, match: /_test$/ }).then(() => {
+//   console.log('yes re-sync done');
+// });
+
+if (process.env.NODE_ENV !== 'test') {
+  db.sequelize.sync({ force: true }).then(() => {
+    console.log('yes re-sync done');
+  });
+}
 
 module.exports = db;

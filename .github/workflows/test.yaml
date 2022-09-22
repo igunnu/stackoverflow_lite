@@ -15,6 +15,8 @@ jobs:
       TEST_DB_user: pe1ay0vi3znxgd40
       TEST_DB_password: ogzkbhy5mctix7rf
       TEST_DB_name: zw87sk0vg0b6bh0b
+      JWT_SECRET: thisisasecret
+      JWT_EXPIRE: 60d
 
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +27,7 @@ jobs:
       - run: yarn
       - run: yarn run test:github
   coverage:
-    name: Build
+    name: coverage
     runs-on: ubuntu-latest
     steps:
 

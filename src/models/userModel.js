@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       username: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
       },
       password: {
         type: DataTypes.STRING,
@@ -29,7 +28,13 @@ module.exports = (sequelize, DataTypes) => {
             user.password = bcrypt.hashSync(user.password, salt);
           }
         }
-      }
+      },
+      indexes: [
+        {
+          type: 'UNIQUE',
+          fields: ['username']
+        }
+      ]
     }
   );
   User.prototype.validPassword = async (password, hash) => bcrypt.compareSync(password, hash);

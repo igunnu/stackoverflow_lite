@@ -3,11 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     body: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    vote_count: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      allowNull: false
     }
   });
 

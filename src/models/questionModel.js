@@ -1,15 +1,32 @@
 module.exports = (sequelize, DataTypes) => {
-  const Question = sequelize.define('question', {
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+  const Question = sequelize.define(
+    'question',
+    {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      body: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      acceptedAnswer: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'answers',
+          key: 'id'
+        }
+      }
     },
-    body: {
-      type: DataTypes.STRING,
-      allowNull: false
+    {
+      indexes: [
+        {
+          type: 'FULLTEXT',
+          fields: ['title']
+        }
+      ]
     }
-  });
+  );
 
   return Question;
 };

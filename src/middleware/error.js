@@ -7,9 +7,12 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === 'SequelizeUniqueConstraintError') {
     let message;
     err.errors.forEach((e) => {
-      message = `${e.path} with value ${e.value} already exists \n`;
+      message = `${e.path.split('_')[1]} already exists`;
     });
     error = new ErrorResponse(message, 400);
+  }
+  if (err.name === 'SequelizeForeignKeyConstraintError') {
+    error = new ErrorResponse('Object not found', 404);
   }
 
   // uncaught error default to 500

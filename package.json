@@ -10,7 +10,7 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "test": "nyc --reporter=html --reporter=text mocha 'test/**/*.js'",
-    "test-github": "nyc --reporter=lcov --reporter=text-summary mocha --timeout 30000 'test/**/*.js'",
+    "test:github": "nyc --reporter=lcov --reporter=text-summary mocha --timeout 30000 'test/**/*.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {

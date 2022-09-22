@@ -15,7 +15,6 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse('Object not found', 404);
   }
 
-  console.log(err);
   // uncaught error default to 500
   res.status(error.statusCode || 500).json({
     status: 'failed',

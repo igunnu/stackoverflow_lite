@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'test';
+require('./auth.test')
 const { expect } = require('chai');
 const request = require('supertest');
 const { app, server } = require('../../src/app');
@@ -56,10 +57,6 @@ describe('Question routes', () => {
     const user2 = await request(app).post('/api/v1/auth/register').send({ username: 'qwerty', password: 'secret' });
     token2 = user2._body.data.token;
     token = response._body.data.token;
-  });
-
-  after(() => {
-    server.close();
   });
 
   it('Created, post new question', (done) => {

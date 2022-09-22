@@ -51,8 +51,7 @@ describe('Question routes', () => {
   let questionId;
 
   before(async () => {
-    await db.sequelize.sync({ force: true });
-    const response = await request(app).post('/api/v1/auth/register').send(user);
+    const response = await request(app).post('/api/v1/auth/login').send(user);
     await db.questions.bulkCreate(seedQuestions);
     const user2 = await request(app).post('/api/v1/auth/register').send({ username: 'qwerty', password: 'secret' });
     token2 = user2._body.data.token;
@@ -178,7 +177,7 @@ describe('Question routes', () => {
 
   it('OK, get all answers to question', (done) => {
     request(app)
-      .get('/api/v1/questions/1/answers')
+      .get(`/api/v1/questions/${questionId}/answers`)
       .expect(200)
       .then((res) => {
         const { body } = res;

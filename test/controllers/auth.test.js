@@ -5,13 +5,15 @@ const request = require('supertest');
 const { app, server } = require('../../src/app');
 const db = require('../../src/models/index');
 
+
+
 describe('Authentication routes', () => {
   const user = {
     username: 'superuser',
     password: 'password'
   };
   before(async () => {
-    await db.sequelize.sync({ force: true });
+    
   });
   after(() => {
     server.close();

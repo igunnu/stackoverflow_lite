@@ -10,18 +10,18 @@ describe('answer routes', () => {
   const seedAnswers = [
     {
       body: 'this is an answer',
-      userId: 2,
+      userId: 1,
       questionId: 3
 
     },
     {
       body: 'this is an answer',
-      userId: 2,
+      userId: 1,
       questionId: 3
     },
     {
       body: 'this is an answer',
-      userId: 2,
+      userId: 1,
       questionId: 4
     },
     {
@@ -31,7 +31,7 @@ describe('answer routes', () => {
     },
     {
       body: 'this is an answer',
-      userId: 2,
+      userId: 1,
       questionId: 4
     }
   ];
@@ -148,7 +148,8 @@ describe('answer routes', () => {
       })
       .catch((err) => done(err));
     });
-  after(() => {
+  after(async() => {
+    await db.sequelize.sync({ force: true });
     server.close();
   });
 });

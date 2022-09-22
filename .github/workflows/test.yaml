@@ -24,3 +24,4 @@ jobs:
           node-version: '18.x'
       - run: yarn
       - run: yarn run test:github
+      - run: yarn run coverage

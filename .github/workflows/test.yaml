@@ -18,5 +18,4 @@ jobs:
         with:
           node-version: '18.x'
       - run: yarn
-      - run: yarn run build --if-present
       - run: yarn run test

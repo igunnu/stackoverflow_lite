@@ -11,12 +11,12 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      TEST_DB_host: qvti2nukhfiig51b.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
-      TEST_DB_user: pe1ay0vi3znxgd40
-      TEST_DB_password: ogzkbhy5mctix7rf
-      TEST_DB_name: zw87sk0vg0b6bh0b
-      JWT_SECRET: thisisasecret
-      JWT_EXPIRE: 60d
+      TEST_DB_host: ${{secrets.DB_host}}
+      TEST_DB_user: ${{secrets.DB_user}}
+      TEST_DB_password: ${{secrets.DB_password}}
+      TEST_DB_name: ${{secrets.DB_name}}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+      JWT_EXPIRE: ${{secrets.JWT_EXPIRE}}
 
     steps:
       - uses: actions/checkout@v3

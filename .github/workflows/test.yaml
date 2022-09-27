@@ -1,0 +1,32 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main, dev-testing-debug]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      TEST_DB_host: ${{secrets.DB_host}}
+      TEST_DB_user: ${{secrets.DB_user}}
+      TEST_DB_password: ${{secrets.DB_password}}
+      TEST_DB_name: ${{secrets.DB_name}}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+      JWT_EXPIRE: ${{secrets.JWT_EXPIRE}}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - run: yarn
+      - run: yarn run test:github
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,7 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/igunnu/stackoverflow_lite/badge.svg)](https://coveralls.io/github/igunnu/stackoverflow_lite)
 # STACKOVERFLOW_LITE
 StackOverflow-lite is a platform where people can ask questions and provide answers, this project contains the API for the platform
----
 ## Requirements
 you will need Node.js and a node global package, Yarn and MySQL database installed in your environment
 ## Installation

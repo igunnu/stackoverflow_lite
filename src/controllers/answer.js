@@ -4,7 +4,6 @@ const ErrorResponse = require('../utils/errorResponse');
 
 const Comment = db.comments;
 const Question = db.questions;
-const Answer = db.answers;
 const User = db.users;
 const Vote = db.votes;
 

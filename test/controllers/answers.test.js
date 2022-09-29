@@ -161,6 +161,21 @@ describe('answer routes', () => {
       .catch((err) => done(err));
   });
 
+  it('OK, get top question', (done) => {
+    request(app)
+      .get('/api/v1/questions/top')
+      .expect(200)
+      .then((res) => {
+        const { body } = res;
+        expect(body.status).to.equal('success');
+        expect(body.data.message).to.equal('success');
+        expect(body.data.question).to.have.lengthOf(1);
+        expect(body.data.question[0].id).to.equal(3);
+        done();
+      })
+      .catch((err) => done(err));
+  });
+
   after(async () => {
     await db.sequelize.sync({ force: true });
     server.close();

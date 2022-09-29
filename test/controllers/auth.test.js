@@ -3,9 +3,6 @@ process.env.NODE_ENV = 'test';
 const { expect } = require('chai');
 const request = require('supertest');
 const { app, server } = require('../../src/app');
-const db = require('../../src/models/index');
-
-
 
 describe('Authentication routes', () => {
   const user = {
@@ -13,7 +10,7 @@ describe('Authentication routes', () => {
     password: 'password'
   };
   before(async () => {
-    
+
   });
   after(() => {
     server.close();

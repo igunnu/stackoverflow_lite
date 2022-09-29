@@ -22,4 +22,4 @@ const PORT = process.env.PORT || 8080;
 // eslint-disable-next-line no-console
 const server = app.listen(PORT, console.log(`server is running on port ${PORT}`));
 
-module.exports = {app, server}
+module.exports = { app, server };

@@ -1,8 +1,6 @@
 require('./questions.test');
 const { expect } = require('chai');
-const { response } = require('express');
 const request = require('supertest');
-const { token, token2 } = require('./questions.test');
 const { app, server } = require('../../src/app');
 const db = require('../../src/models/index');
 
@@ -90,7 +88,7 @@ describe('answer routes', () => {
         done();
       })
       .catch((err) => done(err));
-    });
+  });
 
   it('OK, vote answer(downvote)', (done) => {
     request(app)
@@ -134,7 +132,7 @@ describe('answer routes', () => {
       .catch((err) => done(err));
   });
 
-  it('created, accept answer', (done) => {
+  it('created, post comment', (done) => {
     request(app)
       .post('/api/v1/answers/2/comment')
       .set('Authorization', `Bearer ${token}`)
@@ -147,8 +145,23 @@ describe('answer routes', () => {
         done();
       })
       .catch((err) => done(err));
-    });
-  after(async() => {
+  });
+
+  it('Ok, view comments', (done) => {
+    request(app)
+      .get('/api/v1/answers/2/comment')
+      .expect(200)
+      .then((res) => {
+        const { body } = res;
+        expect(body.status).to.equal('success');
+        expect(body.data.message).to.equal('successful');
+        expect(body.data.comments).to.have.lengthOf(1);
+        done();
+      })
+      .catch((err) => done(err));
+  });
+
+  after(async () => {
     await db.sequelize.sync({ force: true });
     server.close();
   });

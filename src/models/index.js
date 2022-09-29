@@ -43,7 +43,7 @@ db.answers.hasMany(db.votes, { foreignKey: 'answerId' });
 // });
 
 if (process.env.NODE_ENV !== 'test') {
-  db.sequelize.sync({ force: true }).then(() => {
+  db.sequelize.sync({ force: false }).then(() => {
     console.log('yes re-sync done');
   });
 }

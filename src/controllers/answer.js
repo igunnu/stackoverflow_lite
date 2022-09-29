@@ -5,6 +5,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const Comment = db.comments;
 const Question = db.questions;
 const Answer = db.answers;
+const User = db.users;
 const Vote = db.votes;
 
 exports.acceptAnswer = asyncHandler(async (req, res, next) => {
@@ -69,7 +70,7 @@ exports.postComment = asyncHandler(async (req, res, next) => {
   const data = {
     body,
     userId: req.user.id,
-    answerId: req.params.answerd
+    answerId: req.params.answerId
   };
 
   await Comment.create(data);
@@ -79,4 +80,4 @@ exports.postComment = asyncHandler(async (req, res, next) => {
       message: 'Comment submitted'
     }
   });
-})
+});

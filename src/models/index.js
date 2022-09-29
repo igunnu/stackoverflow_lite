@@ -33,7 +33,7 @@ db.users.hasMany(db.answers);
 db.users.hasMany(db.comments);
 db.questions.belongsTo(db.users, { as: 'author', foreignKey: 'userId' });
 db.answers.belongsTo(db.users, { as: 'author', foreignKey: 'userId' });
-db.comments.belongsTo(db.users);
+db.comments.belongsTo(db.users, { as: 'author', foreignKey: 'userId' });
 db.questions.hasMany(db.answers, { onDelete: 'cascade', allowNull: false });
 db.answers.hasMany(db.comments, { onDelete: 'cascade', allowNull: false });
 db.answers.hasMany(db.votes, { foreignKey: 'answerId' });

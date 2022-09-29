@@ -81,3 +81,25 @@ exports.postComment = asyncHandler(async (req, res, next) => {
     }
   });
 });
+
+exports.getComments = asyncHandler(async (req, res) => {
+  const comments = await Comment.findAll({
+    where: { answerId: req.params.answerId },
+    attributes: {
+      exclude: 'userId'
+    },
+    include: [{
+      model: User,
+      as: 'author',
+      attributes: ['username']
+    }]
+  });
+
+  return res.status(201).json({
+    status: 'success',
+    data: {
+      comments,
+      message: 'successful'
+    }
+  });
+});

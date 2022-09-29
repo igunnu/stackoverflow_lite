@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const db = require('../models/index');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');

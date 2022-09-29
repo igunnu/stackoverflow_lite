@@ -4,7 +4,7 @@ const ErrorResponse = require('../utils/errorResponse');
 
 const Comment = db.comments;
 const Question = db.questions;
-const Answer = db.answers;
+const User = db.users;
 const Vote = db.votes;
 
 exports.acceptAnswer = asyncHandler(async (req, res, next) => {
@@ -69,7 +69,7 @@ exports.postComment = asyncHandler(async (req, res, next) => {
   const data = {
     body,
     userId: req.user.id,
-    answerId: req.params.answerd
+    answerId: req.params.answerId
   };
 
   await Comment.create(data);
@@ -79,4 +79,26 @@ exports.postComment = asyncHandler(async (req, res, next) => {
       message: 'Comment submitted'
     }
   });
-})
+});
+
+exports.getComments = asyncHandler(async (req, res) => {
+  const comments = await Comment.findAll({
+    where: { answerId: req.params.answerId },
+    attributes: {
+      exclude: 'userId'
+    },
+    include: [{
+      model: User,
+      as: 'author',
+      attributes: ['username']
+    }]
+  });
+
+  return res.status(200).json({
+    status: 'success',
+    data: {
+      comments,
+      message: 'successful'
+    }
+  });
+});

@@ -8,12 +8,14 @@ const {
   getAnswers,
   deleteQuestion,
   searchQuestion,
-  myQuestions
+  myQuestions,
+  mostAnsweredQuestion
 } = require('../controllers/questions');
 
 router.get('/', getAllQuestions);
 router.post('/', protectedRoute, postQuestion);
 router.get('/me', protectedRoute, myQuestions);
+router.get('/top', mostAnsweredQuestion);
 router.post('/search', searchQuestion);
 router.get('/:questionId', getQuestion);
 router.post('/:questionId/answers', protectedRoute, postAnswer);

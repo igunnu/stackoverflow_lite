@@ -67,7 +67,7 @@ describe('Question routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('success');
-        expect(body.data.message).to.equal('Question submitted');
+        expect(body.data.message).to.equal('question submitted');
         done();
       })
       .catch((err) => done(err));
@@ -82,7 +82,7 @@ describe('Question routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('failed');
-        expect(body.error).to.equal('Invalid Bearer Token');
+        expect(body.error).to.equal('invalid bearer token');
         done();
       })
       .catch((err) => done(err));
@@ -96,7 +96,7 @@ describe('Question routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('failed');
-        expect(body.error).to.equal('Login required');
+        expect(body.error).to.equal('login required');
         done();
       })
       .catch((err) => done(err));
@@ -155,7 +155,7 @@ describe('Question routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('success');
-        expect(body.data.message).to.equal('Answer submitted');
+        expect(body.data.message).to.equal('answer submitted');
         done();
       })
       .catch((err) => done(err));
@@ -197,7 +197,7 @@ describe('Question routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('success');
-        expect(body.data.message).to.equal('Question deleted');
+        expect(body.data.message).to.equal('question deleted');
         done();
       })
       .catch((err) => done(err));
@@ -211,7 +211,7 @@ describe('Question routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('failed');
-        expect(body.error).to.equal('Operation not permitted');
+        expect(body.error).to.equal('operation not permitted');
         done();
       })
       .catch((err) => done(err));

@@ -12,7 +12,7 @@ const postQuestion = async (question, user) => {
 
   await Question.create(data);
   return {
-    message: 'Question submitted'
+    message: 'question submitted'
   };
 };
 

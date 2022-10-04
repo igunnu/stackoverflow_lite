@@ -45,36 +45,6 @@ describe('answer routes', () => {
     token = response._body.data.token;
   });
 
-  // it('OK, get all question', (done) => {
-  //   request(app)
-  //     .get('/api/v1/questions')
-  //     .expect(200)
-  //     .then((res) => {
-  //       const { body } = res;
-  //       console.log(body.data)
-  //       expect(body.status).to.equal('success');
-  //       expect(body.data.message).to.equal('success');
-  //       expect(body.data).to.contain.property('questions');
-  //       expect(body.data.questions[0]).to.contain.property('id');
-  //       done();
-  //     })
-  //     .catch((err) => done(err));
-  // });
-
-  // it('OK, get all answers to question', (done) => {
-  //   request(app)
-  //     .get('/api/v1/questions/4/answers')
-  //     .expect(200)
-  //     .then((res) => {
-  //       const { body } = res;
-  //       console.log(body.data)
-  //       expect(body.status).to.equal('success');
-  //       expect(body.data.answers).to.have.lengthOf(1);
-  //       done();
-  //     })
-  //     .catch((err) => done(err));
-  // });
-
   it('OK, accept answer', (done) => {
     request(app)
       .post('/api/v1/answers/2/accept')
@@ -84,7 +54,7 @@ describe('answer routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('success');
-        expect(body.data.message).to.equal('Answer accepted');
+        expect(body.data.message).to.equal('answer accepted');
         done();
       })
       .catch((err) => done(err));
@@ -141,7 +111,7 @@ describe('answer routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('success');
-        expect(body.data.message).to.equal('Comment submitted');
+        expect(body.data.message).to.equal('comment submitted');
         done();
       })
       .catch((err) => done(err));
@@ -154,7 +124,7 @@ describe('answer routes', () => {
       .then((res) => {
         const { body } = res;
         expect(body.status).to.equal('success');
-        expect(body.data.message).to.equal('successful');
+        expect(body.data.message).to.equal('success');
         expect(body.data.comments).to.have.lengthOf(1);
         done();
       })

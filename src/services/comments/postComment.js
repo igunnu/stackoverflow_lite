@@ -17,7 +17,7 @@ const postComment = async (req) => {
 
   await Comment.create(data);
   return {
-    message: 'Comment submitted'
+    message: 'comment submitted'
   };
 };
 

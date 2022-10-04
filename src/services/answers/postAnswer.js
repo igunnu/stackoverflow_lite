@@ -15,7 +15,7 @@ const postAnswer = async (body, userId, questionId) => {
   };
   await Answer.create(data);
   return {
-    message: 'Answer submitted'
+    message: 'answer submitted'
   };
 };
 

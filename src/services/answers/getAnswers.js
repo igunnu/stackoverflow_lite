@@ -25,7 +25,7 @@ const getAnswers = async (questionId) => {
   });
   return {
     answers,
-    message: 'successful'
+    message: 'success'
   };
 };
 

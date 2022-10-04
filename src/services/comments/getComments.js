@@ -18,7 +18,7 @@ const getComments = async (req) => {
 
   return {
     comments,
-    message: 'successful'
+    message: 'success'
   };
 };
 

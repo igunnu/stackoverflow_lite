@@ -3,10 +3,11 @@ const { protectedRoute } = require('../middleware/auth');
 const {
   acceptAnswer, vote, postComment, getComments
 } = require('../controllers/answer');
+const validateCommentObject = require('../validators/commentValidator');
 
 router.post('/:answerId/accept', protectedRoute, acceptAnswer);
 router.get('/:answerId/vote', protectedRoute, vote);
-router.post('/:answerId/comment', protectedRoute, postComment);
+router.post('/:answerId/comment', validateCommentObject, protectedRoute, postComment);
 router.get('/:answerId/comment', getComments);
 
 module.exports = router;

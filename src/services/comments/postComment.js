@@ -1,14 +1,9 @@
 const db = require('../../models/index');
-const ErrorResponse = require('../../utils/errorResponse');
 
 const Comment = db.comments;
 
 const postComment = async (req) => {
   const { body } = req.body;
-  if (!body) {
-    throw new ErrorResponse('body is required', 400);
-  }
-
   const data = {
     body,
     userId: req.user.id,

@@ -2,20 +2,18 @@ const Joi = require('joi');
 const ErrorResponse = require('../utils/errorResponse');
 
 const schema = Joi.object({
-  searchQuery: Joi.string()
-    .min(1)
-    .required()
-
+  page: Joi.number(),
+  limit: Joi.number()
 });
 
-const validateSearchObject = async (req, res, next) => {
+const validateQueryObject = async (req, res, next) => {
   try {
-    const value = await schema.validateAsync(req.body);
-    req.body = value;
+    const value = await schema.validateAsync(req.query);
+    req.query = value;
     return next();
   } catch (err) {
     return next(new ErrorResponse(err.message.replace(/[\\"]/gi, ''), 400));
   }
 };
 
-module.exports = validateSearchObject;
+module.exports = validateQueryObject;

@@ -9,11 +9,11 @@ const deleteQuestion = async (questionId, userId) => {
   });
 
   if (userId !== question.userId) {
-    throw new ErrorResponse('Operation not permitted', 401);
+    throw new ErrorResponse('operation not permitted', 401);
   }
   await question.destroy();
   return {
-    message: 'Question deleted'
+    message: 'question deleted'
   };
 };
 

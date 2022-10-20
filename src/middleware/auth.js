@@ -15,7 +15,7 @@ exports.protectedRoute = asyncHandler(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(new ErrorResponse('Login required', 401));
+    return next(new ErrorResponse('login required', 401));
   }
 
   try {
@@ -23,6 +23,6 @@ exports.protectedRoute = asyncHandler(async (req, res, next) => {
     req.user = await User.findByPk(decoded.id);
     next();
   } catch (err) {
-    return next(new ErrorResponse('Invalid Bearer Token', 401));
+    return next(new ErrorResponse('invalid bearer token', 401));
   }
 });

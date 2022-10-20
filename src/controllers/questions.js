@@ -18,7 +18,7 @@ exports.postQuestion = asyncHandler(async (req, res) => {
 });
 
 exports.getAllQuestions = asyncHandler(async (req, res) => {
-  const data = await getAllQuestions();
+  const data = await getAllQuestions(req);
   return successResponse(res, data, 200);
 });
 
@@ -33,7 +33,7 @@ exports.postAnswer = asyncHandler(async (req, res) => {
 });
 
 exports.getAnswers = asyncHandler(async (req, res) => {
-  const data = await getAnswers(req.params.questionId);
+  const data = await getAnswers(req);
   return successResponse(res, data, 200);
 });
 
@@ -43,7 +43,7 @@ exports.deleteQuestion = asyncHandler(async (req, res) => {
 });
 
 exports.searchQuestion = asyncHandler(async (req, res) => {
-  const data = await searchQuestion(req.body);
+  const data = await searchQuestion(req);
   return successResponse(res, data, 200);
 });
 
